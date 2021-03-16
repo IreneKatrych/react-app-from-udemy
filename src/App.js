@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
-import './App.css';
+import classes from'./App.module.css'; //WE SHOULD USE [FILE_NAME].MODULE.CSS FOR CSS MODULES
+
+//RADIUM LIBRARY
 //import Radium, { StyleRoot } from 'radium';
+
+//STYLED COMPONENTS LIBRARY
 //import styled from 'styled-components';
 
 import Person from './Person/Person';
 
+//FOR STYLED COMPONENT LIBRARY
 // const StyledButton = styled.button`
 //   background-color: ${props => props.alt ? 'red' : 'green'};
 //   color: white;
@@ -29,7 +34,7 @@ class App extends Component {
     showPersons: false
   };
 
-  /*
+  /* DEPRECATED FUNCTION
   switchNameHandler = (newName) => {
     // console.log('Was clicked!');
     // DON'T DO THIS: this.state.persons[0].name = 'Maximilian';
@@ -52,6 +57,7 @@ class App extends Component {
       ...this.state.persons[personIndex]
     };
 
+    //ANOTHER WAY TO COPY ARRAY ELEMENTS
     //const person = Object.assign({}, this.state.persons[personIndex]);
 
     person.name = event.target.value;
@@ -63,7 +69,10 @@ class App extends Component {
   };
 
   deletePersonHandler = (personIndex) => {
+
+    //THIS WILL MUTATE STATE - WE SHOULD NOT USE THIS WAY
     // const persons = this.state.persons.slice();
+
     const persons = [...this.state.persons];
     persons.splice(personIndex, 1);
     this.setState({
@@ -78,6 +87,7 @@ class App extends Component {
 
   render() {
 
+    //THIS IS OBJECT FOR RADIUM
     // const style = {
     //   backgroundColor: 'green',
     //   color: 'white',
@@ -92,6 +102,7 @@ class App extends Component {
     // }
 
     let persons = null;
+    let btnClass = [classes.Button];
 
     if(this.state.showPersons) {
       persons = (
@@ -107,6 +118,9 @@ class App extends Component {
         </div>
       );
 
+      btnClass.push(classes.Red);
+
+      //THIS IS ALSO FOR RADIUM (DYNAMIC CHANGES)
       // style.backgroundColor = 'red';
       // style[':hover'] = {
       //   backgroundColor: 'salmon',
@@ -114,37 +128,39 @@ class App extends Component {
       // }
     }
 
-    let classes = [];
+    let assignedClasses = [];
     if(this.state.persons.length <= 2) {
-      classes.push('red');
+      assignedClasses.push(classes.red);
     };
     if(this.state.persons.length <= 1) {
-      classes.push('bold');
+      assignedClasses.push(classes.bold);
     };
 
     return (
-      //<StyleRoot>
-        <div className="App">
+      //FOR RADIUM -> <StyleRoot>
+        <div className={classes.App}>
           <h1>Hi, I'm a React App</h1>
-          <p className={classes.join(' ')}>This is really working!</p>
+          <p className={assignedClasses.join(' ')}>This is really working!</p>
           <button
-            //style={style}
-            //alt={this.state.showPersons}
-            className='button'
+            //ALSO FOR RADIUM -> style={style}
+            //FOR STYLED COMPONENTS -> alt={this.state.showPersons}
+            className={btnClass.join(' ')}
             onClick={this.togglePersonHandler}>Toggle Persons
           </button>
           {persons}
         </div>
-      //</StyleRoot>
+      //RADIUM -> </StyleRoot>
     );
+
+    //ANOTHER WAY TO CREATE REACT ELEMENT
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
   }
 }
 
-//export default Radium(App);
+//RADIUM -> export default Radium(App);
 export default App;
 
-//hook component
+//HOOK COMPONENTS
 /*
 import React, { useState } from 'react';
 import './App.css';

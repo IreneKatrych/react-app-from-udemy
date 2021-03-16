@@ -1,9 +1,11 @@
 import React from 'react';
-//import Radium from 'radium';
-import styled from 'styled-components';
+//import Radium from 'radium'; RADIUM
+//import styled from 'styled-components'; STYLED COMPONENTS
 
-//import './Person.css'
+import classes from './Person.module.css'; //CSS MODULES
 
+/*
+STYLED COMPONENTS ELEMENT
 const StyledDiv = styled.div`
     width: 60%;
     margin: 16px auto;
@@ -16,9 +18,10 @@ const StyledDiv = styled.div`
         width: 450px;
     }
 `;
+*/
 
 const person = (props) => {
-    /*
+    /* RADIUM
     const style = {
         '@media (min-width: 500px)': {
             width: '450px'
@@ -27,15 +30,17 @@ const person = (props) => {
     */
 
     return (
-        //<div className='Person' style={style}>
-        <StyledDiv>
+        //<div className='Person' style={style}> -> STYLED COMPONENTS
+        // RADIUM -> <StyledDiv>
+        <div className={classes.Person}>
             <p onClick={props.click} >I'm {props.name} and I'm {props.age} years old!</p>
             <p>{props.children}</p>
             <input type='text' onChange={props.changed} value={props.name} />
-        </StyledDiv>
+        </div>
+        //RADIUM -> </StyledDiv>
         //</div>
     )
 };
 
-//export default Radium(person);
+//RADIUM -> export default Radium(person);
 export default person;
